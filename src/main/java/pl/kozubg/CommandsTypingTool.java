@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * Simple tool created to allow automatically typing commands from file.
  *
  * Required params: path to source file and delay between typing lines (seconds).
- * (ex: "java CommandsTypingTool.class \home\marian\commands.txt 2")
+ * (ex: "java -jar SimpleTyper-1.0-SNAPSHOT.jar /home/marian/Temp/commands 2")
  *
  */
 public class CommandsTypingTool {
