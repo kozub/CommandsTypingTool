@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class SimpleTyper {
@@ -43,12 +45,17 @@ public class SimpleTyper {
         Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
         System.out.println(screenRect.toString());
         BufferedImage capture = robo.createScreenCapture(screenRect);
-        if (!Files.exists(RESOURCE_DIR))
-            Files.createDirectories(RESOURCE_DIR);
-        Path screenShot = RESOURCE_DIR.resolve(String.valueOf(++screenshotsCounter) + ".jpg");
+        Path screenShot = getFilePath();
         Files.createFile(screenShot);
         ImageIO.write(capture, "jpg", screenShot.toFile());
         logger.info("SimpleTyper.takeScreenShot() - finished");
+    }
+
+    private Path getFilePath() throws IOException {
+        if (!Files.exists(RESOURCE_DIR))
+            Files.createDirectories(RESOURCE_DIR);
+        String datePostfix = "_" + new SimpleDateFormat("hhmmss").format(new Date());
+        return RESOURCE_DIR.resolve(String.valueOf(++screenshotsCounter) + datePostfix + ".jpg");
     }
 
     private void typeText(String text) {
